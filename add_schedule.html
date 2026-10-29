@@ -1,0 +1,57 @@
+{% include 'airlinehead.html' %}
+<div class="home-bgr">
+    <div class="text-center bold">
+        {% if message!=None %}
+           {{message}}
+        {% endif %}
+    </div>
+    <div>.</div>
+    <div class="card p-10">
+        <div class="title text-center">Add Schedules</div>
+        <form action="schedules_action" method="post">
+            <div class="row">
+                <div class="col-6 p-5">
+                   <select name="source_airport_id" class="form-control">
+                       <option value="">source airport</option>
+                       {% for airport in airports %}
+                          <option value="{{airport['_id']}}">{{airport['airport']}}</option>
+                       {% endfor %}
+                   </select>
+                </div>
+                <div class="col-6 p-5">
+                   <select name="destination_airport_id" class="form-control">
+                       <option value="">destination airport</option>
+                       {% for airport in airports %}
+                          <option value="{{airport['_id']}}">{{airport['airport']}}</option>
+                       {% endfor %}
+                   </select>
+                </div>
+            </div>
+            <div class="p-5">
+                <label>Arrival Date Time</label>
+                <input type="datetime-local" placeholder="arrival datetime" min="{{today}}" class="form-control" name="arrival_date_time" >
+            </div>
+            <div class="p-5">
+                <label>Departure Date Time</label>
+                <input type="datetime-local" placeholder="departure datetime" min="{{today}}" class="form-control" name="departure_date_time">
+            </div>
+            <div class="p-5">
+                <input type="number" placeholder="business class price" class="form-control" name="business_class_price">
+            </div>
+            <div class="p-5">
+                <input type="number" placeholder="economic class price" class="form-control" name="economic_class_price">
+            </div>
+            <div class="p-5">
+                <input type="number" placeholder="first class price" class="form-control" name="first_class_price">
+            </div>
+            <div class="p-5">
+                <input type="hidden" value={{airplane_id}} name="airplane_id">
+            </div>
+            <div>
+                <input type="submit" value="add" class="btn btn-primary">
+            </div>
+        </form>
+
+    </div>
+
+</div>
