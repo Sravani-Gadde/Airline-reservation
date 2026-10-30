@@ -1,0 +1,82 @@
+{% include 'airlinehead.html' %}
+{{future_schedule}}
+{{past_schedule}}
+<div class="home-bgr">
+    <div class="title text-center">View Schedules</div>
+    <div class="text-center bold">Schedules</div>
+    {% if len(future_schedules)!=0 %}
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Arrival DateTime</th>
+                <th>Departure DateTime</th>
+                <th>Business Class</th>
+                <th>Economy Class</th>
+                <th>First Class</th>
+                <th>Duration</th>
+                <th>Source Airport</th>
+                <th>Destination Airport</th>
+                <th>Airplane Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for future_schedule in future_schedules %}
+            {% set airport1=get_destination_airport_name_by_airport_id(future_schedule['destination_airport_id']) %}
+            {% set airport2=get_source_airport_name_by_airport_id(future_schedule['source_airport_id']) %}
+            {% set airplane=get_airplane_name_by_airplane_name(future_schedule['airplane_id']) %}
+            <tr>
+                <td>{{future_schedule['arrival_date_time']}}</td>
+                <td>{{future_schedule['departure_date_time']}}</td>
+                <td>{{future_schedule['business_class_price']}}</td>
+                <td>{{future_schedule['economic_class_price']}}</td>
+                <td>{{future_schedule['first_class_price']}}</td>
+                <td>{{future_schedule['duration']}}</td>
+                <td>{{airport2['airport']}}</td>
+                <td>{{airport1['airport']}}</td>
+                <td>{{airplane['airplane_name']}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="text-center ">No future schedules</div>
+    {% endif %}
+    <div class="text-center bold mt-20">Past Schedules</div>
+    {% if len(past_schedules)!=0 %}
+        <table class="table" border="1">
+            <thead>
+            <tr>
+                <th>Arrival DateTime</th>
+                <th>Departure DateTime</th>
+                <th>Business Class</th>
+                <th>Economy Class</th>
+                <th>First Class</th>
+                <th>Duration</th>
+                <th>Source Airport</th>
+                <th>Destination Airport</th>
+                <th>Airplane Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for past_schedule in past_schedules %}
+            {% set airport1=get_destination_airport_name_by_airport_id(past_schedule['destination_airport_id']) %}
+            {% set airport2=get_source_airport_name_by_airport_id(past_schedule['source_airport_id']) %}
+            {% set airplane=get_airplane_name_by_airplane_name(past_schedule['airplane_id']) %}
+            <tr>
+                <td>{{past_schedule['arrival_date_time']}}</td>
+                <td>{{past_schedule['departure_date_time']}}</td>
+                <td>{{past_schedule['business_class_price']}}</td>
+                <td>{{past_schedule['economic_class_price']}}</td>
+                <td>{{past_schedule['first_class_price']}}</td>
+                <td>{{past_schedule['duration']}}</td>
+                <td>{{airport2['airport']}}</td>
+                <td>{{airport1['airport']}}</td>
+                <td>{{airplane['airplane_name']}}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+       <div class="text-center ">there are no past schedules</div>
+    {% endif %}
+</div>
